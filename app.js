@@ -55,33 +55,36 @@ console.log(`Congrats! You've created your first peon and this is the current st
 
 
 //We chose to create a function that represents ONE player round (before action)
-const startRound = ()=>{
-    let round = prompt(`Round Start! Would you like to CREATE or SELECT a peon? - Please type (create) or (select): `);
+function startRound(){
+    let round1 = prompt(`Round Start! Would you like to CREATE or SELECT a peon? - Please type (create) or (select): `);
 console.clear();
-while(round !== "create" && round !== "select"){
-    round = prompt(`Please type either (create) or (select): `);
+while(round1 !== "create" && round1 !== "select"){
+    round1 = prompt(`Please type either (create) or (select): `);
 }
-if(round === "create"){
-    round = prompt(`Give your peon a name: `);
-    playerBarracks.push({name: round, job: "nothing"}); //If player chose to create a peon - we added to his barracks with correct property values
-}else if(round === "select"){
+if(round1 === "create"){
+    let round2;
+    round2 = prompt(`Give your peon a name: `);
+    playerBarracks.push({name: round2, job: "nothing"}); //If player chose to create a peon - we added to his barracks with correct property values
+}else if(round1 === "select"){
     console.log(`These are your current Barracks:`, playerBarracks);
-    round = prompt(`Please select a peon from your Barracks - Type peon name: `);
+    let round3;
+    round3 = prompt(`Please select a peon from your Barracks - Type peon name: `);
     console.clear();
     playerBarracks.forEach((peon)=>{
         console.log(`Here is the current status of your Barracks`, playerBarracks); //We chose to display the status of Barracks on this line, so that play can see available peons (also, to only show Barracks once even after multiple incorrect inputs)
-        while(round !== peon.name){
-            round = prompt(`Please type a correct peon name: `);
+        while(round3 !== peon.name){
+            round3 = prompt(`Please type a correct peon name: `);
         }
-        if(peon.name === round){
+        if(peon.name === round3){
             console.log(`You have chosen ${peon.name}`); 
-            round = prompt(`What action would you like ${peon.name} to perform? - Please type (attack) or (repair): `);
-            while(round !== "attack" && round !== "repair"){
-                round = prompt(`Please type either (attack) or (repair): `);
+            let round4;
+            round4 = prompt(`What action would you like ${peon.name} to perform? - Please type (attack) or (repair): `);
+            while(round4 !== "attack" && round4 !== "repair"){
+                round4 = prompt(`Please type either (attack) or (repair): `);
             }
-            if(round === "attack"){
+            if(round4 === "attack"){
                 peon.job = "attack";
-            }else if(round === "repair"){
+            }else if(round4 === "repair"){
                 peon.job = "repair";
             }
         }
@@ -93,7 +96,7 @@ startRound();
 console.clear();
 
 //Part 2: Player action
- const playerAction = ()=>{
+function playerAction(){
     playerBarracks.forEach((peon)=>{ //We want to iterate over the player's barracks to initiate the action phase 
     if(peon.job === "repair"){ //With the forEach() method we can target the value of the object elements and identify the value to match our conditional statements
         playerHealth += 1;
@@ -106,7 +109,7 @@ console.clear();
 }
 
 //Part 3: 
-const computerAction = ()=>{
+function computerAction(){
     let computerDecision = computerOptions[Math.floor(Math.random() * 2)];
     if(computerDecision === computerOptions[0]){
         playerHealth -= computerNumber;
@@ -117,7 +120,7 @@ const computerAction = ()=>{
     }
 }
 computerAction();
-// console.log(`Current Player Health: ${playerHealth} - Current Feudal Lord Health: ${computerHealth}`);
+console.log(`Current Player Health: ${playerHealth} - Current Feudal Lord Health: ${computerHealth}`);
 
 //We chose to use a while...loop to ensure that if end game status had both computer and player health above 0 - the game would start from beginning
 while(computerHealth > 0 && playerHealth > 0){  
